@@ -1,9 +1,13 @@
 TEMPLATE = app
 
 QT += qml quick
+LIBS += -L../liboic -loic
+LIBS += -L../libcoap -lcoap
 
-LIBS += -L../liboic-build -loic
+
 INCLUDEPATH += ../liboic
+INCLUDEPATH += ../std
+INCLUDEPATH += ../libcoap
 
 CONFIG += c++11
 
