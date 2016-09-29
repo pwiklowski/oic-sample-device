@@ -24,7 +24,7 @@ Window {
             objectName: "frontSlider"
             width: parent.width
             minimumValue: 0
-            maximumValue: 10000
+            maximumValue: 255
             updateValueWhileDragging: true
             value: 50
             stepSize: 1
@@ -40,7 +40,7 @@ Window {
             width: parent.width
             objectName: "backSlider"
             minimumValue: 0
-            maximumValue: 10000
+            maximumValue: 255
             updateValueWhileDragging: true
             value: 50
             stepSize: 1
@@ -56,7 +56,7 @@ Window {
             width: parent.width
             objectName: "tableSlider"
             minimumValue: 0
-            maximumValue: 10000
+            maximumValue: 255
             updateValueWhileDragging: true
             value: 50
             stepSize: 1
@@ -73,7 +73,7 @@ Window {
             objectName: "redSlider"
             width: parent.width
             minimumValue: 0
-            maximumValue: 10000
+            maximumValue: 255
             updateValueWhileDragging: true
             value: 50
             stepSize: 1
@@ -90,7 +90,7 @@ Window {
             objectName: "greenSlider"
             width: parent.width
             minimumValue: 0
-            maximumValue: 10000
+            maximumValue: 255
             updateValueWhileDragging: true
             value: 50
             stepSize: 1
@@ -107,7 +107,7 @@ Window {
             objectName: "blueSlider"
             width: parent.width
             minimumValue: 0
-            maximumValue:10000
+            maximumValue: 255
             updateValueWhileDragging: true
             value: 50
             stepSize: 1
