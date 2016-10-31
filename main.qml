@@ -63,6 +63,22 @@ Window {
             onValueChanged: app.notifyObservers("/lampa/table", value)
         }
         Text{
+            text: "Ambient Power"
+            font.family: "Ubuntu"
+            font.weight: Font.Light
+            font.pixelSize: 25
+        }
+        Slider{
+            width: parent.width
+            objectName: "ambientPowerSlider"
+            minimumValue: 0
+            maximumValue: 100
+            updateValueWhileDragging: true
+            value: 50
+            stepSize: 1
+            onValueChanged: app.notifyObservers("/lampa/ambientPower", value)
+        }
+        Text{
             text: "Red"
             font.family: "Ubuntu"
             font.weight: Font.Light

@@ -20,6 +20,8 @@ Application::Application(int &argc, char *argv[]) : QGuiApplication(argc, argv)
     QObject *blueSlider= root->findChild<QObject*>("blueSlider");
     QObject *greenSlider= root->findChild<QObject*>("greenSlider");
 
+    QObject *ambientPowerSlider = root->findChild<QObject*>("ambientPowerSlider");
+    ambientPowerSlider->setProperty("value", 0);
 
     server = new OICServer("Lampa", "0685B960-736F-46F7-BEC0-9E6CBD61ADC2", [&](COAPPacket* packet){
         this->send_packet(packet);
@@ -45,6 +47,13 @@ Application::Application(int &argc, char *argv[]) : QGuiApplication(argc, argv)
     tableInitial->append("rt", "oic.r.light.dimming");
     tableInitial->append("dimmingSetting", 5);
     tableInitial->append("range", "0,255");
+
+
+    cbor* ambientPowerInitial = new cbor(CBOR_TYPE_MAP);
+    ambientPowerInitial->append("rt", "oic.r.light.dimming");
+    ambientPowerInitial->append("dimmingSetting", (long long)0);
+    ambientPowerInitial->append("range", "0,100");
+
 
     OICResource* front = new OICResource("/lampa/front", "oic.r.light.dimming","oic.if.rw", [=](cbor data){
         frontInitial->toMap()->insert("dimmingSetting", data.getMapValue("dimmingSetting")); //update dimming settings
@@ -72,6 +81,13 @@ Application::Application(int &argc, char *argv[]) : QGuiApplication(argc, argv)
 
     }, tableInitial);
 
+    OICResource* ambientPower = new OICResource("/lampa/ambientPower", "oic.r.light.dimming","oic.if.rw", [=](cbor data){
+        ambientPowerInitial->toMap()->insert("dimmingSetting", data.getMapValue("dimmingSetting"));
+        int val = data.getMapValue("dimmingSetting").toInt();
+        qDebug() << "Ambient power updated" << val;
+        ambientPowerSlider->setProperty("value",val);
+
+    }, ambientPowerInitial);
     OICResource* ambient = new OICResource("/lampa/ambient", "oic.r.colour.rgb","oic.if.rw", [=](cbor data){
         ambientInitial->toMap()->insert("dimmingSetting", data.getMapValue("dimmingSetting"));
         List<String> vals = data.getMapValue("dimmingSetting").toString().split(",");
@@ -94,6 +110,7 @@ Application::Application(int &argc, char *argv[]) : QGuiApplication(argc, argv)
     server->addResource(front);
     server->addResource(back);
     server->addResource(table);
+    server->addResource(ambientPower);
     server->addResource(ambient);
 
     server->start();
