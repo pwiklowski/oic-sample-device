@@ -14,11 +14,17 @@ Application::Application(int &argc, char *argv[]) : QGuiApplication(argc, argv)
 
     QObject* root = engine.rootObjects().first();
     QObject *frontSlider= root->findChild<QObject*>("frontSlider");
+    frontSlider->setProperty("value", 0);
     QObject *backSlider= root->findChild<QObject*>("backSlider");
+    backSlider->setProperty("value", 0);
     QObject *tableSlider= root->findChild<QObject*>("tableSlider");
+    tableSlider->setProperty("value", 0);
     QObject *redSlider= root->findChild<QObject*>("redSlider");
+    redSlider->setProperty("value", 0);
     QObject *blueSlider= root->findChild<QObject*>("blueSlider");
+    blueSlider->setProperty("value", 0);
     QObject *greenSlider= root->findChild<QObject*>("greenSlider");
+    greenSlider->setProperty("value", 0);
 
     QObject *ambientPowerSlider = root->findChild<QObject*>("ambientPowerSlider");
     ambientPowerSlider->setProperty("value", 0);
@@ -29,23 +35,23 @@ Application::Application(int &argc, char *argv[]) : QGuiApplication(argc, argv)
 
     cbor* ambientInitial = new cbor(CBOR_TYPE_MAP);
     ambientInitial->append("rt", "oic.r.colour.rgb");
-    ambientInitial->append("dimmingSetting", "1,2,3");
+    ambientInitial->append("dimmingSetting", "0,0,0");
 
 
     cbor* frontInitial = new cbor(CBOR_TYPE_MAP);
     frontInitial->append("rt", "oic.r.light.dimming");
-    frontInitial->append("dimmingSetting", 5);
+    frontInitial->append("dimmingSetting", (long long) 0);
     frontInitial->append("range", "0,255");
 
     cbor* backInitial = new cbor(CBOR_TYPE_MAP);
     backInitial->append("rt", "oic.r.light.dimming");
-    backInitial->append("dimmingSetting", 5);
+    backInitial->append("dimmingSetting",(long long) 0);
     backInitial->append("range", "0,255");
 
 
     cbor* tableInitial = new cbor(CBOR_TYPE_MAP);
     tableInitial->append("rt", "oic.r.light.dimming");
-    tableInitial->append("dimmingSetting", 5);
+    tableInitial->append("dimmingSetting", (long long)0);
     tableInitial->append("range", "0,255");
 
 
