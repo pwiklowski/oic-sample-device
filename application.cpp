@@ -94,6 +94,7 @@ Application::Application(int &argc, char *argv[]) : QGuiApplication(argc, argv)
         ambientPowerSlider->setProperty("value",val);
 
     }, ambientPowerInitial);
+
     OICResource* ambient = new OICResource("/lampa/ambient", "oic.r.colour.rgb","oic.if.rw", [=](cbor data){
         ambientInitial->toMap()->insert("dimmingSetting", data.getMapValue("dimmingSetting"));
         List<String> vals = data.getMapValue("dimmingSetting").toString().split(",");
@@ -200,7 +201,7 @@ void* Application::run(void* param){
             oic_server->handleMessage(p);
             delete p;
         }
-
+        oic_server->sendQueuedPackets();
         if ((get_current_ms() - lastTick) > 1000){
             lastTick = get_current_ms();
             oic_server->checkPackets();
@@ -257,10 +258,6 @@ void* Application::runDiscovery(void* param){
             COAPPacket* p = COAPPacket::parse(buffer, rc, a->convertAddress(client));
             oic_server->handleMessage(p);
             delete p;
-        }
-        if ((get_current_ms() - lastTick) > 1000){
-            lastTick = get_current_ms();
-            oic_server->checkPackets();
         }
     }
 }
