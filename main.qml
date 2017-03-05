@@ -7,10 +7,10 @@ Window {
     id: mainWindow
     visible: true
     width: 300
-    height:  500
+    height:  600
+
 
     Column{
-        anchors.margins: 50
         spacing: 15
         width: parent.width
         height: parent.height
@@ -21,6 +21,7 @@ Window {
             font.pixelSize: 25
         }
         Slider{
+            anchors.margins: 10
             objectName: "frontSlider"
             width: parent.width
             minimumValue: 0
