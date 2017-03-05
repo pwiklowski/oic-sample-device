@@ -298,7 +298,7 @@ void Application::notifyObservers(QString name, QVariant v){
             value.append("range", "0,255");
         }
 
-        List<uint8_t> data;
+        Vector<uint8_t> data;
         value.dump(&data);
 
 
